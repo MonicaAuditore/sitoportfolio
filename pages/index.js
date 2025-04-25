@@ -17,42 +17,47 @@ export default function Index({ posts, globalData }) {
         <h1 className="mb-12 text-3xl text-center lg:text-5xl">
           {globalData.blogTitle}
         </h1>
-        <ul className="w-full">
+
+        {/* Container con 4 colonne su desktop */}
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {posts.map((post) => (
-            <li
+            <div
               key={post.filePath}
-              className="transition border border-b-0 bg-white/10 border-gray-800/10 md:first:rounded-t-lg md:last:rounded-b-lg backdrop-blur-lg dark:bg-black/30 hover:bg-white/20 dark:hover:bg-black/50 dark:border-white/10 last:border-b"
+              className="transition border bg-white/10 border-gray-800/10 rounded-lg backdrop-blur-lg dark:bg-black/30 hover:bg-white/20 dark:hover:bg-black/50 dark:border-white/10 flex flex-col h-full"
               data-sb-object-id={`posts/${post.filePath}`}
             >
               <Link
                 as={`/posts/${post.filePath.replace(/\.mdx?$/, '')}`}
                 href={`/posts/[slug]`}
-                className="block px-6 py-6 lg:py-10 lg:px-16 focus:outline-hidden focus:ring-4 focus:ring-primary/50"
+                className="block px-5 py-5 flex-grow focus:outline-hidden focus:ring-4 focus:ring-primary/50"
               >
                 {post.data.date && (
                   <p
-                    className="mb-3 font-bold uppercase opacity-60"
+                    className="mb-2 font-bold uppercase text-sm opacity-60"
                     data-sb-field-path="date"
                   >
                     {post.data.date}
                   </p>
                 )}
-                <h2 className="text-2xl md:text-3xl" data-sb-field-path="title">
+                <h2 className="text-lg md:text-xl" data-sb-field-path="title">
                   {post.data.title}
                 </h2>
                 {post.data.description && (
                   <p
-                    className="mt-3 text-lg opacity-60"
+                    className="mt-2 text-sm opacity-60 line-clamp-3"
                     data-sb-field-path="description"
                   >
                     {post.data.description}
                   </p>
                 )}
-                <ArrowIcon className="mt-4" />
+                <div className="mt-3 flex items-center">
+                  <span className="text-sm mr-2">Scopri di più</span>
+                  <ArrowIcon className="w-4 h-4" />
+                </div>
               </Link>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </main>
       <Footer copyrightText={globalData.footerText} />
       <GradientBackground
